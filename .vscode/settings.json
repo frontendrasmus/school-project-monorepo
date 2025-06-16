@@ -1,8 +1,5 @@
 {
-  "eslint.workingDirectories": [
-    ".",
-    "apps/frontend"
-  ],
+  "eslint.workingDirectories": [".", "apps/frontend"],
   "eslint.validate": [
     "javascript",
     "javascriptreact",

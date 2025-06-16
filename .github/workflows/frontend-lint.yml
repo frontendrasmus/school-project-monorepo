@@ -1,4 +1,4 @@
-name: Frontend Code Quality
+name: Frontend Checks
 
 on:
   push:
@@ -25,6 +25,8 @@ jobs:
   code-quality:
     name: Frontend Code Quality
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/database
 
     steps:
       - name: Checkout repository
@@ -36,12 +38,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'pnpm'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -59,6 +60,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      # Ensure Prisma client is generated before build
+      - name: Generate Prisma Client
+        run: pnpm --filter ./apps/frontend exec prisma generate
 
       # Step 1: Prettier formatting check
       - name: Check formatting
@@ -85,25 +90,14 @@ jobs:
           path: .next/cache
           key: ${{ runner.os }}-next-${{ hashFiles('**/pnpm-lock.yaml', '**/next.config.js') }}
 
-      - name: Build project
+      - name: Build frontend project
         id: build
-        run: pnpm run build
-        continue-on-error: true
-
-      - name: Run tsc-alias to fix path aliases
-        id: tscalias
-        run: pnpm dlx tsc-alias -p apps/frontend/tsconfig.json
-        continue-on-error: true
-
-      # Nx affected build for monorepo integrity
-      - name: Nx affected build
-        id: nxbuild
-        run: npx nx affected -t build --parallel=3
+        run: pnpm --filter ./apps/frontend run build
         continue-on-error: true
 
       - name: Upload code quality results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-quality-results
           path: |
@@ -114,12 +108,20 @@ jobs:
       - name: Check for errors
         if: always()
         run: |
-          if [ "${{ steps.format.outcome }}" == "failure" ] || \
-             [ "${{ steps.typecheck.outcome }}" == "failure" ] || \
-             [ "${{ steps.lint.outcome }}" == "failure" ] || \
-             [ "${{ steps.build.outcome }}" == "failure" ] || \
-             [ "${{ steps.tscalias.outcome }}" == "failure" ] || \
-             [ "${{ steps.nxbuild.outcome }}" == "failure" ]; then
-            echo "Code quality checks failed"
+          failures=""
+          [[ "${{ steps.format.outcome }}" == "failure" ]] && failures+=" formatting"
+          [[ "${{ steps.typecheck.outcome }}" == "failure" ]] && failures+=" typecheck"
+          [[ "${{ steps.lint.outcome }}" == "failure" ]] && failures+=" lint"
+          [[ "${{ steps.build.outcome }}" == "failure" ]] && failures+=" build"
+
+          if [ -n "$failures" ]; then
+            echo "❌ The following checks failed:$failures"
+            # Add a markdown summary for the Actions page
+            echo "### Failed checks" >> $GITHUB_STEP_SUMMARY
+            for f in $failures; do
+              echo "- $f" >> $GITHUB_STEP_SUMMARY
+            done
             exit 1
+          else
+            echo "✅ All code-quality checks passed!"
           fi

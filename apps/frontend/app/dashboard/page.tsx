@@ -1,10 +1,11 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { escapeHtml } from '@/app/utils/stringUtils';
 
-export default function Dashboard() {
+function DashboardContent() {
   const searchParams = useSearchParams();
   const firstName = searchParams.get('firstName');
   const lastName = searchParams.get('lastName');
@@ -128,5 +129,15 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div />}>
+      {' '}
+      {/* TODO: replace with skeleton */}
+      <DashboardContent />
+    </Suspense>
   );
 }

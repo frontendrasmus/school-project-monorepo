@@ -1,5 +1,7 @@
 import { prisma } from '@/app/utils/prisma';
 
+export const dynamic = 'force-dynamic';
+
 interface TestItem {
   id: string;
   name: string;

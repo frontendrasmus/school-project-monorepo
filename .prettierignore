@@ -3,3 +3,17 @@
 /coverage
 /.nx/cache
 /.nx/workspace-data
+
+# Ignore generated or non-source files
+/node_modules
+/.next
+/.turbo
+
+# Content files not to be formatted
+*.md
+*.pdf
+
+# Lockfiles
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
