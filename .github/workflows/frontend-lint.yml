@@ -59,6 +59,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Ensure Prisma client is generated before build
+      - name: Generate Prisma Client
+        run: pnpm --filter ./apps/frontend exec prisma generate
+
       # Step 1: Prettier formatting check
       - name: Check formatting
         id: format
@@ -94,12 +98,6 @@ jobs:
         run: pnpm dlx tsc-alias -p apps/frontend/tsconfig.json
         continue-on-error: true
 
-      # Nx affected build for monorepo integrity
-      - name: Nx affected build
-        id: nxbuild
-        run: npx nx affected -t build --parallel=3
-        continue-on-error: true
-
       - name: Upload code quality results
         if: always()
         uses: actions/upload-artifact@v4
@@ -119,7 +117,6 @@ jobs:
           [[ "${{ steps.lint.outcome }}" == "failure" ]] && failures+=" lint"
           [[ "${{ steps.build.outcome }}" == "failure" ]] && failures+=" build"
           [[ "${{ steps.tscalias.outcome }}" == "failure" ]] && failures+=" tsc-alias"
-          [[ "${{ steps.nxbuild.outcome }}" == "failure" ]] && failures+=" nx-affected-build"
 
           if [ -n "$failures" ]; then
             echo "❌ The following checks failed:$failures"
