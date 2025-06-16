@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import nxPlugin from '@nx/eslint-plugin';
+import nextPlugin from 'eslint-plugin-next';
 
 /**
  * Flat ESLint configuration for the entire monorepo.
@@ -16,6 +17,9 @@ export default [
 
   // React / JSX rules (a11y + hooks) – works for both Next.js & plain React
   ...nxPlugin.configs['react-jsx'],
+
+  // Next.js specific rules (core web vitals)
+  ...nextPlugin.configs['core-web-vitals'],
 
   // Your custom tweaks
   {
