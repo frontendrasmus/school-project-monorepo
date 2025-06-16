@@ -1,4 +1,4 @@
-name: Frontend Code Quality
+name: Frontend Checks
 
 on:
   push:
