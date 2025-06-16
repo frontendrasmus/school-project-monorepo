@@ -43,3 +43,6 @@ Thumbs.db
 # IDE / Editor folders
 .idea/
 .sublime-workspace
+
+# TypeScript build cache
+*.tsbuildinfo

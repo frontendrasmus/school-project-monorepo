@@ -8,8 +8,8 @@
   "scripts": {
     "dev:frontend": "cd apps/frontend && pnpm run dev",
     "dev:backend": "cd apps/backend && pnpm run dev",
-    "dev": "pnpm run --parallel dev",
-    "build": "pnpm run --parallel build",
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r --parallel run build",
     "build:frontend": "cd apps/frontend && pnpm run build",
     "build:backend": "cd apps/backend && pnpm run build",
     "start": "pnpm run --parallel start",
@@ -20,10 +20,10 @@
     "docker:logs": "docker compose logs -f",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "typecheck": "pnpm run --parallel typecheck",
+    "typecheck": "pnpm -r --parallel run typecheck",
     "typecheck:frontend": "cd apps/frontend && pnpm run typecheck",
     "typecheck:backend": "cd apps/backend && pnpm run typecheck",
-    "lint": "pnpm run --parallel lint"
+    "lint": "pnpm -r --parallel run lint"
   },
   "devDependencies": {
     "@nx/eslint": "^21.2.0",

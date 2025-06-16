@@ -88,14 +88,9 @@ jobs:
           path: .next/cache
           key: ${{ runner.os }}-next-${{ hashFiles('**/pnpm-lock.yaml', '**/next.config.js') }}
 
-      - name: Build project
+      - name: Build frontend project
         id: build
-        run: pnpm run build
-        continue-on-error: true
-
-      - name: Run tsc-alias to fix path aliases
-        id: tscalias
-        run: pnpm dlx tsc-alias -p apps/frontend/tsconfig.json
+        run: pnpm --filter ./apps/frontend run build
         continue-on-error: true
 
       - name: Upload code quality results
@@ -116,7 +111,6 @@ jobs:
           [[ "${{ steps.typecheck.outcome }}" == "failure" ]] && failures+=" typecheck"
           [[ "${{ steps.lint.outcome }}" == "failure" ]] && failures+=" lint"
           [[ "${{ steps.build.outcome }}" == "failure" ]] && failures+=" build"
-          [[ "${{ steps.tscalias.outcome }}" == "failure" ]] && failures+=" tsc-alias"
 
           if [ -n "$failures" ]; then
             echo "❌ The following checks failed:$failures"
