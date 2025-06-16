@@ -81,15 +81,15 @@ npx prisma generate
 Create `school-parent-monorepo/apps/frontend/lib/prisma.ts`:
 
 ```typescript
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
+  prisma: PrismaClient | undefined;
+};
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 ```
 
 ## 8. Create API Route Example
@@ -97,39 +97,39 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 Create `school-parent-monorepo/apps/frontend/app/api/test-items/route.ts`:
 
 ```typescript
-import { prisma } from '@/lib/prisma'
-import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
     const testItems = await prisma.testItem.findMany({
       orderBy: {
-        createdAt: 'desc'
-      }
-    })
-    return NextResponse.json(testItems)
+        createdAt: 'desc',
+      },
+    });
+    return NextResponse.json(testItems);
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal Server Error' },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
+    const body = await request.json();
     const testItem = await prisma.testItem.create({
       data: {
-        name: body.name
-      }
-    })
-    return NextResponse.json(testItem, { status: 201 })
+        name: body.name,
+      },
+    });
+    return NextResponse.json(testItem, { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal Server Error' },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }
 ```
@@ -266,8 +266,8 @@ npx prisma migrate deploy
 Create `school-parent-monorepo/apps/frontend/lib/error-handler.ts`:
 
 ```typescript
-import { Prisma } from '@prisma/client'
-import { NextResponse } from 'next/server'
+import { Prisma } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
 export function handlePrismaError(error: unknown) {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -275,25 +275,19 @@ export function handlePrismaError(error: unknown) {
       case 'P2002':
         return NextResponse.json(
           { error: 'Unique constraint violation' },
-          { status: 409 }
-        )
+          { status: 409 },
+        );
       case 'P2025':
         return NextResponse.json(
           { error: 'Record not found' },
-          { status: 404 }
-        )
+          { status: 404 },
+        );
       default:
-        return NextResponse.json(
-          { error: 'Database error' },
-          { status: 500 }
-        )
+        return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
   }
 
-  return NextResponse.json(
-    { error: 'Internal Server Error' },
-    { status: 500 }
-  )
+  return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
 }
 ```
 
@@ -302,9 +296,9 @@ export function handlePrismaError(error: unknown) {
 Create `school-parent-monorepo/apps/frontend/types/prisma.ts`:
 
 ```typescript
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client';
 
-export type TestItem = Prisma.TestItemGetPayload<{}>
+export type TestItem = Prisma.TestItemGetPayload<{}>;
 ```
 
 ## 16. Middleware for API Protection
@@ -312,26 +306,23 @@ export type TestItem = Prisma.TestItemGetPayload<{}>
 Create `school-parent-monorepo/apps/frontend/middleware.ts`:
 
 ```typescript
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   // Add your authentication logic here
-  const token = request.headers.get('authorization')
+  const token = request.headers.get('authorization');
 
   if (!token) {
-    return NextResponse.json(
-      { error: 'Unauthorized' },
-      { status: 401 }
-    )
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: '/api/:path*'
-}
+  matcher: '/api/:path*',
+};
 ```
 
 ## 17. Production Database Setup
@@ -352,7 +343,7 @@ Add logging to your Prisma client:
 // lib/prisma.ts
 const prisma = new PrismaClient({
   log: ['query', 'info', 'warn', 'error'],
-})
+});
 ```
 
 ## 19. Security Best Practices
@@ -421,3 +412,4 @@ const test = "This is a test"
 10. Incorrect HTML:
 <div>This is not properly closed
 <p>This is not properly closed
+```

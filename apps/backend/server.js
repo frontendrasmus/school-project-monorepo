@@ -10,7 +10,7 @@ app.use(
     origin: 'http://localhost:3000', // Your Next.js frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
-  })
+  }),
 );
 
 // Hello World endpoint
