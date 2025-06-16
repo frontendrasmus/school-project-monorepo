@@ -113,12 +113,22 @@ jobs:
       - name: Check for errors
         if: always()
         run: |
-          if [ "${{ steps.format.outcome }}" == "failure" ] || \
-             [ "${{ steps.typecheck.outcome }}" == "failure" ] || \
-             [ "${{ steps.lint.outcome }}" == "failure" ] || \
-             [ "${{ steps.build.outcome }}" == "failure" ] || \
-             [ "${{ steps.tscalias.outcome }}" == "failure" ] || \
-             [ "${{ steps.nxbuild.outcome }}" == "failure" ]; then
-            echo "Code quality checks failed"
+          failures=""
+          [[ "${{ steps.format.outcome }}" == "failure" ]] && failures+=" formatting"
+          [[ "${{ steps.typecheck.outcome }}" == "failure" ]] && failures+=" typecheck"
+          [[ "${{ steps.lint.outcome }}" == "failure" ]] && failures+=" lint"
+          [[ "${{ steps.build.outcome }}" == "failure" ]] && failures+=" build"
+          [[ "${{ steps.tscalias.outcome }}" == "failure" ]] && failures+=" tsc-alias"
+          [[ "${{ steps.nxbuild.outcome }}" == "failure" ]] && failures+=" nx-affected-build"
+
+          if [ -n "$failures" ]; then
+            echo "❌ The following checks failed:$failures"
+            # Add a markdown summary for the Actions page
+            echo "### Failed checks" >> $GITHUB_STEP_SUMMARY
+            for f in $failures; do
+              echo "- $f" >> $GITHUB_STEP_SUMMARY
+            done
             exit 1
+          else
+            echo "✅ All code-quality checks passed!"
           fi
