@@ -1,0 +1,125 @@
+name: Frontend Code Quality
+
+on:
+  push:
+    branches:
+      - main
+      - inital-poc-setup-frontend-next
+      - '**' # This will run on all branches
+    paths:
+      - 'apps/frontend/**'
+      - 'packages/**'
+      - '.github/workflows/**' # Added to trigger on workflow changes
+  pull_request:
+    branches:
+      - main
+      - inital-poc-setup-frontend-next
+      - '**' # This will run on all branches
+    paths:
+      - 'apps/frontend/**'
+      - 'packages/**'
+      - '.github/workflows/**' # Added to trigger on workflow changes
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  code-quality:
+    name: Frontend Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Step 1: Prettier formatting check
+      - name: Check formatting
+        id: format
+        run: pnpm exec prettier --check .
+        continue-on-error: true
+
+      - name: Run type checking
+        id: typecheck
+        run: |
+          pnpm run typecheck
+        continue-on-error: true
+
+      - name: Run linting
+        id: lint
+        run: |
+          pnpm run lint
+        continue-on-error: true
+
+      # Step 3: Production build with caching and tsc-alias
+      - name: Restore Next.js cache
+        uses: actions/cache@v3
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('**/pnpm-lock.yaml', '**/next.config.js') }}
+
+      - name: Build project
+        id: build
+        run: pnpm run build
+        continue-on-error: true
+
+      - name: Run tsc-alias to fix path aliases
+        id: tscalias
+        run: pnpm dlx tsc-alias -p apps/frontend/tsconfig.json
+        continue-on-error: true
+
+      # Nx affected build for monorepo integrity
+      - name: Nx affected build
+        id: nxbuild
+        run: npx nx affected -t build --parallel=3
+        continue-on-error: true
+
+      - name: Upload code quality results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-quality-results
+          path: |
+            apps/frontend/.eslintcache
+            apps/frontend/tsconfig.tsbuildinfo
+          if-no-files-found: warn
+
+      - name: Check for errors
+        if: always()
+        run: |
+          if [ "${{ steps.format.outcome }}" == "failure" ] || \
+             [ "${{ steps.typecheck.outcome }}" == "failure" ] || \
+             [ "${{ steps.lint.outcome }}" == "failure" ] || \
+             [ "${{ steps.build.outcome }}" == "failure" ] || \
+             [ "${{ steps.tscalias.outcome }}" == "failure" ] || \
+             [ "${{ steps.nxbuild.outcome }}" == "failure" ]; then
+            echo "Code quality checks failed"
+            exit 1
+          fi

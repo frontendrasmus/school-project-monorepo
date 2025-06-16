@@ -1,0 +1,159 @@
+# School Parent Application Development Rules
+
+## Project Structure
+- All components should be in the `app/components` directory
+- Pages should be in the `app` directory following Next.js 15 App Router conventions
+- Shared types should be in `app/types`
+- API routes should be in `app/api`
+- Database models should be in `app/models`
+
+## Code Style
+- Use TypeScript for all code
+- Follow functional programming patterns
+- Implement early returns for better readability
+- Use descriptive names with auxiliary verbs (isLoading, hasError)
+- Prefix event handlers with "handle" (handleClick, handleSubmit)
+- Use lowercase with dashes for directories (components/auth-wizard)
+- Favor named exports for components
+- use linting when ever possible, for apps/frontend use the provided .eslintrc.json
+
+## TypeScript Conventions
+- Declare separate types with `type` keyword
+- For React components with .jsx/.tsx extension, use `Props` type name
+- Prefer interfaces over types
+- Avoid enums; use const maps instead
+- Use `satisfies` operator for type validation
+
+## React/Next.js Best Practices
+- Favor React Server Components (RSC) where possible
+- Minimize 'use client' directives
+- Implement proper error boundaries
+- Use Suspense for async operations
+- Use `useActionState` instead of deprecated `useFormState`
+- Leverage enhanced `useFormStatus` with new properties
+- Implement URL state management with 'nuqs'
+- Minimize client-side state,
+- use the best practices based on these packages when doing forms "@tanstack/react-form": "^1.12.2",
+- use the best practices based on these packages when doing requests to backends "@tanstack/react-query": "^5.80.6",
+
+## API and Data Handling
+- Use async versions of runtime APIs
+- Handle async params in layouts/pages
+- Implement proper error handling for all API calls
+- Use proper validation for all form inputs
+- Implement proper loading states
+
+## Accessibility
+- Ensure all components are accessible
+- Use proper ARIA labels
+- Implement keyboard navigation
+- Ensure proper color contrast
+- Test with screen readers
+
+## Performance
+- Optimize for Core Web Vitals
+- Implement proper caching strategies
+- Use proper image optimization
+- Minimize bundle size
+- Implement proper code splitting
+
+## Testing
+- Write unit tests for all components
+- Implement integration tests for critical flows
+- Use proper mocking strategies
+- Test edge cases and error states
+- Ensure proper test coverage
+
+## Security
+- Implement proper authentication
+- Use proper authorization checks
+- Sanitize all user inputs
+- Implement proper CSRF protection
+- Use proper environment variables
+
+## Documentation
+- Document all components
+- Document all API endpoints
+- Document all types
+- Document all environment variables
+- Keep README up to date
+
+## Analysis Process
+
+Before responding to any request, follow these steps:
+
+1. Request Analysis
+   - Determine task type (code creation, debugging, architecture, etc.)
+   - Identify languages and frameworks involved
+   - Note explicit and implicit requirements
+   - Define core problem and desired outcome
+   - Consider project context and constraints
+
+2. Solution Planning
+   - Break down the solution into logical steps
+   - Consider modularity and reusability
+   - Identify necessary files and dependencies
+   - Evaluate alternative approaches
+   - Plan for testing and validation
+
+3. Implementation Strategy
+   - Choose appropriate design patterns
+   - Consider performance implications
+   - Plan for error handling and edge cases
+   - Ensure accessibility compliance
+   - Verify best practices alignment
+
+## Code Style and Structure
+
+### General Principles
+
+- Write concise, readable TypeScript code
+- Use functional and declarative programming patterns
+- Follow DRY (Don't Repeat Yourself) principle
+- Implement early returns for better readability
+- Structure components logically: exports, subcomponents, helpers, types
+
+### Naming Conventions
+
+- Use descriptive names with auxiliary verbs (isLoading, hasError)
+- Prefix event handlers with "handle" (handleClick, handleSubmit)
+- Use lowercase with dashes for directories (components/auth-wizard)
+- Favor named exports for components
+
+### TypeScript Usage
+
+- Use TypeScript for all code
+- always declare separate types with type, for react components woth the jsx ending use the name Props for the type
+- Prefer interfaces over types
+- Avoid enums; use const maps instead
+- Implement proper type safety and inference
+- Use `satisfies` operator for type validation
+
+## React 19 and Next.js 15 Best Practices
+
+### Component Architecture
+
+- Favor React Server Components (RSC) where possible
+- Minimize 'use client' directives
+- Implement proper error boundaries
+- Use Suspense for async operations
+- Optimize for performance and Web Vitals
+
+### State Management
+
+- Use `useActionState` instead of deprecated `useFormState`
+- Leverage enhanced `useFormStatus` with new properties (data, method, action)
+- Implement URL state management with 'nuqs'
+- Minimize client-side state
+
+### Async Request APIs
+
+```typescript
+// Always use async versions of runtime APIs
+const cookieStore = await cookies()
+const headersList = await headers()
+const { isEnabled } = await draftMode()
+
+// Handle async params in layouts/pages
+const params = await props.params
+const searchParams = await props.searchParams

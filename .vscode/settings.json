@@ -1,0 +1,17 @@
+{
+  "eslint.workingDirectories": [
+    ".",
+    "apps/frontend"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.experimental.useFlatConfig": false,
+  "typescript.preferences.includePackageJsonAutoImports": "on"
+}

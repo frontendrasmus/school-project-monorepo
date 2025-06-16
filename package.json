@@ -1,0 +1,46 @@
+{
+  "name": "school-parent-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:frontend": "cd apps/frontend && pnpm run dev",
+    "dev:backend": "cd apps/backend && pnpm run dev",
+    "dev": "pnpm run --parallel dev",
+    "build": "pnpm run --parallel build",
+    "build:frontend": "cd apps/frontend && pnpm run build",
+    "build:backend": "cd apps/backend && pnpm run build",
+    "start": "pnpm run --parallel start",
+    "start:frontend": "cd apps/frontend && pnpm run start",
+    "start:backend": "cd apps/backend && pnpm run start",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "typecheck": "pnpm run --parallel typecheck",
+    "typecheck:frontend": "cd apps/frontend && pnpm run typecheck",
+    "typecheck:backend": "cd apps/backend && pnpm run typecheck",
+    "lint": "pnpm run --parallel lint"
+  },
+  "devDependencies": {
+    "@nx/eslint": "^21.2.0",
+    "@nx/eslint-plugin": "^21.2.0",
+    "@types/node": "^20.11.24",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.2.5",
+    "typescript": "~5.3.3"
+  }
+}
