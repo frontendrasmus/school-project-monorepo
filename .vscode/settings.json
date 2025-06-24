@@ -1,8 +1,5 @@
 {
-  "eslint.workingDirectories": [
-    "./apps/frontend",
-    "./apps/backend",
-  ],
+  "eslint.workingDirectories": ["./apps/frontend", "./apps/backend"],
   "eslint.run": "onType",
   "eslint.validate": [
     "javascript",

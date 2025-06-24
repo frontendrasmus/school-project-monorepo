@@ -23,7 +23,9 @@
     "typecheck": "pnpm -r --parallel run typecheck",
     "typecheck:frontend": "cd apps/frontend && pnpm run typecheck",
     "typecheck:backend": "cd apps/backend && pnpm run typecheck",
-    "lint": "pnpm -r --parallel run lint"
+    "lint": "pnpm -r --parallel run lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@eslint/js": "^8.57.1",
