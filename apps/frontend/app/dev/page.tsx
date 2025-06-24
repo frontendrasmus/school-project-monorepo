@@ -6,6 +6,14 @@ type ApiResponse = {
   message: string;
 };
 
+function isApiResponse(value: unknown): value is ApiResponse {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as Record<string, unknown>).message === 'string'
+  );
+}
+
 export default function DevPage() {
   const [apiStatus, setApiStatus] = useState<string>('Checking...');
   const [apiError, setApiError] = useState<string | null>(null);
@@ -17,8 +25,11 @@ export default function DevPage() {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data: ApiResponse = await response.json();
-        setApiStatus(data.message);
+        const raw = (await response.json()) as unknown;
+        if (!isApiResponse(raw)) {
+          throw new Error('Invalid API response');
+        }
+        setApiStatus(raw.message);
         setApiError(null);
       } catch (error) {
         setApiStatus('Error');
@@ -28,7 +39,7 @@ export default function DevPage() {
       }
     };
 
-    checkApiStatus();
+    void checkApiStatus();
   }, []);
 
   return (

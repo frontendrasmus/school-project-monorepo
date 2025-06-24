@@ -114,3 +114,14 @@ Database: school_parent
 Username: school_parent
 Password: school_parent_password
 Connection URL: postgresql://school_parent:school_parent_password@localhost:5432/school_parent
+
+# Connect to database
+
+\dt                          -- list tables
+SELECT * FROM "TestItem";
+\q
+
+\l -- list databases
+\dt -- list tables
+\d table -- describe table
+\q -- quit

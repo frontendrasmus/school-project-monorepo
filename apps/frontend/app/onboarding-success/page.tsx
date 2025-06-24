@@ -51,7 +51,7 @@ export default function OnboardingSuccess() {
       country: 'sweden' as Country,
       region: undefined as Region | undefined,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       setError('');
       try {
         // TODO: Implement API call to save user information
@@ -84,7 +84,7 @@ export default function OnboardingSuccess() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
           className="space-y-4"
         >

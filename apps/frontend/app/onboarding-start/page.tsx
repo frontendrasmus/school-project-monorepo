@@ -21,10 +21,15 @@ export default function OnboardingStart() {
         body: JSON.stringify({ email }),
       });
       if (!res.ok) {
-        const errorData = await res
-          .json()
-          .catch(() => ({ message: 'Signup failed' }));
-        throw new Error(errorData.message || 'Signup failed');
+        type ErrorResponse = { message?: string };
+
+        const raw = (await res.json()) as unknown;
+        const errorData: ErrorResponse =
+          typeof raw === 'object' && raw !== null
+            ? (raw as ErrorResponse)
+            : { message: 'Signup failed' };
+
+        throw new Error(errorData.message ?? 'Signup failed');
       }
       return res;
     },
@@ -56,7 +61,7 @@ export default function OnboardingStart() {
         className="bg-white p-8 rounded shadow-md w-full max-w-md"
         onSubmit={(e) => {
           e.preventDefault();
-          form.handleSubmit();
+          void form.handleSubmit();
         }}
       >
         <h1 className="text-2xl font-bold mb-6">Sign up</h1>

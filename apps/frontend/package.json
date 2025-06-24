@@ -8,6 +8,7 @@
     "prebuild": "prisma generate",
     "pretypecheck": "prisma generate",
     "prisma:generate": "prisma generate",
+    "prestart": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
@@ -38,6 +39,7 @@
     "tailwindcss": "^3.4.4",
     "postcss": "^8.4.35",
     "postcss-import": "^15.1.0",
-    "autoprefixer": "^10.4.17"
+    "autoprefixer": "^10.4.17",
+    "next-intl": "^3.4.0"
   }
 }

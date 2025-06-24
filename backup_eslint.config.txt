@@ -1,0 +1,29 @@
+const js = require('@eslint/js');
+const nxPlugin = require('@nx/eslint-plugin');
+const nextPlugin = require('@next/eslint-plugin-next');
+
+module.exports = [
+  js.configs.recommended,
+  nxPlugin.configs.typescript,
+  nxPlugin.configs['react-jsx'],
+  nextPlugin.configs['core-web-vitals'],
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  {
+    ignores: [
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/dist/**',
+      '**/build/**',
+      'backup_eslint.config.cjs',
+    ],
+  },
+];

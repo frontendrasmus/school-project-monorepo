@@ -23,7 +23,7 @@ export default function CreateTestItemPage() {
 
       if (!response.ok) throw new Error('Failed to create item');
 
-      router.push('/test-items');
+      router.push('/test-item');
       router.refresh();
     } catch (error) {
       console.error('Error creating test item:', error);
@@ -35,7 +35,12 @@ export default function CreateTestItemPage() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Create Test Item</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        onSubmit={(e) => {
+          void handleSubmit(e);
+        }}
+        className="space-y-4"
+      >
         <div>
           <label htmlFor="name" className="block text-sm font-medium">
             Name

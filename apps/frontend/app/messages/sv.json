@@ -1,0 +1,46 @@
+{
+  "home": {
+    "hero": {
+      "title": "Förenkla vägen från skola till yrkesliv för ditt barn med särskilda behov",
+      "text": "Få tillgång till resurser, kontakta lärare och hitta stöd för att hjälpa ditt barn att lyckas i skolan."
+    },
+    "actions": {
+      "getStarted": {
+        "title": "Jag vill titta på tillgängliga guider",
+        "body": "Utforska steg-för-steg-guider för skola och vård."
+      },
+      "findSupport": {
+        "title": "Jag behöver en ansökan för ett specifikt ändamål",
+        "body": "Hitta rätt ansökningsmall och kom igång direkt."
+      }
+    },
+    "featuresHeader": "Förklarnde Sektion här som beskrive VARFÖR vi finns, vad och hur vi gör för att hjälpa etc.",
+    "features": {
+      "guides": {
+        "title": "En text 1",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      "templates": {
+        "title": "En text 2",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      "findHelp": {
+        "title": "En text 3",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    }
+  },
+  "header": {
+    "logo": "School Parent(working name)",
+    "nav": {
+      "guides": "Steg-för-steg guider",
+      "findHelp": "Kontakta vården",
+      "templates": "Ansökningsmallar"
+    }
+  },
+  "avatar": {
+    "admin": "Admin",
+    "settings": "Inställningar",
+    "logout": "Logga ut"
+  }
+}

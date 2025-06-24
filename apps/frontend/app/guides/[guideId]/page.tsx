@@ -1,8 +1,5 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { use } from 'react';
 
 // Mock data for guide content
 const guideContent = {
@@ -89,11 +86,11 @@ const guideContent = {
 };
 
 type PageProps = {
-  params: Promise<{ guideId: string }>;
+  params: { guideId: string };
 };
 
 export default function GuidePage({ params }: PageProps) {
-  const { guideId } = use(params);
+  const { guideId } = params;
   const guide = guideContent[guideId as keyof typeof guideContent];
 
   if (!guide) {
