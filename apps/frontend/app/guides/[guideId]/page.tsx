@@ -82,6 +82,123 @@ const guideContent = {
       },
     ],
   },
+  siblings: {
+    title: 'Supporting Siblings',
+    description:
+      "Help siblings cope and stay involved during their brother or sister's treatment.",
+    steps: [
+      {
+        id: 1,
+        title: 'Open Conversations',
+        description: 'Regularly talk about feelings and concerns.',
+      },
+      {
+        id: 2,
+        title: 'Quality Time',
+        description: 'Schedule one-on-one activities with each sibling.',
+      },
+      {
+        id: 3,
+        title: 'Involve Them',
+        description:
+          'Let siblings participate in simple care tasks or hospital visits if appropriate.',
+      },
+    ],
+  },
+  'hospital-stay': {
+    title: 'Preparing for a Hospital Stay',
+    description:
+      'Essential information and tips for preparing your child for a hospital stay.',
+    steps: [
+      {
+        id: 1,
+        title: 'Pack Comfort Items',
+        description:
+          'Bring favorite toys, books or blankets to make the hospital feel familiar.',
+      },
+      {
+        id: 2,
+        title: 'Tour the Ward',
+        description:
+          'If possible, visit the ward beforehand to reduce anxiety.',
+      },
+      {
+        id: 3,
+        title: 'Explain Procedures',
+        description:
+          'Use age-appropriate language to describe what will happen.',
+      },
+    ],
+  },
+  'medical-terms': {
+    title: 'Understanding Medical Terms',
+    description: 'A glossary of common medical terms and their explanations.',
+    steps: [
+      {
+        id: 1,
+        title: 'Read the Glossary',
+        description: 'Review A-Z list of terms provided by the hospital.',
+      },
+      {
+        id: 2,
+        title: 'Ask Questions',
+        description: 'Always ask healthcare staff to clarify unfamiliar words.',
+      },
+    ],
+  },
+  'emotional-support': {
+    title: 'Emotional Support for Parents',
+    description:
+      "Guidance on managing emotions and stress during your child's treatment.",
+    steps: [
+      {
+        id: 1,
+        title: 'Acknowledge Feelings',
+        description:
+          "It's normal to feel worried, angry or sad—recognise these emotions.",
+      },
+      {
+        id: 2,
+        title: 'Seek Peer Support',
+        description: 'Join parent support groups online or in the hospital.',
+      },
+    ],
+  },
+  nutrition: {
+    title: 'Nutrition During Treatment',
+    description:
+      'Tips for maintaining proper nutrition during medical treatment.',
+    steps: [
+      {
+        id: 1,
+        title: 'Small Frequent Meals',
+        description: 'Offer nutrient-dense snacks if appetite is low.',
+      },
+      {
+        id: 2,
+        title: 'Consult a Dietician',
+        description: 'Get a personalised meal plan suited for the treatment.',
+      },
+    ],
+  },
+  'school-support': {
+    title: 'School Support During Treatment',
+    description:
+      "How to maintain your child's education during medical treatment.",
+    steps: [
+      {
+        id: 1,
+        title: 'Contact the School',
+        description: 'Inform teachers about the treatment schedule early.',
+      },
+      {
+        id: 2,
+        title: 'Utilise Home-Teaching',
+        description:
+          'Arrange for home or hospital teaching services if available.',
+      },
+    ],
+  },
   // Add more guide content as needed
 };
 
