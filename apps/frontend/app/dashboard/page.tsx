@@ -3,7 +3,6 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { escapeHtml } from '@/app/utils/stringUtils';
 
 function DashboardContent() {
   const searchParams = useSearchParams();
@@ -14,12 +13,12 @@ function DashboardContent() {
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Welcome, {escapeHtml(firstName || '')} {escapeHtml(lastName || '')}!
+          Welcome, {firstName ?? ''} {lastName ?? ''}!
         </h1>
         <p className="text-gray-600 mb-12">
-          {escapeHtml(
-            "This is your dashboard where you'll find all your important information.",
-          )}
+          {
+            "This is your dashboard where you'll find all your important information."
+          }
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">
@@ -34,9 +33,9 @@ function DashboardContent() {
                 Contact points for healthcare near you
               </h3>
               <p className="text-gray-600 mb-6">
-                {escapeHtml(
-                  "Based on your location, we've found these healthcare facilities that can provide support for your child's needs.",
-                )}
+                {
+                  "Based on your location, we've found these healthcare facilities that can provide support for your child's needs."
+                }
               </p>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
@@ -55,7 +54,7 @@ function DashboardContent() {
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div>
                     <h4 className="font-medium">
-                      {escapeHtml("Astrid Lindgren Children's Hospital")}
+                      {"Astrid Lindgren Children's Hospital"}
                     </h4>
                     <p className="text-sm text-gray-600">
                       Eugeniavägen 23, 171 64 Solna
@@ -84,9 +83,9 @@ function DashboardContent() {
                 Recommended next actions for your child
               </h3>
               <p className="text-gray-600 mb-6">
-                {escapeHtml(
-                  "Based on your child's profile and needs, here are the recommended next steps to ensure proper support and care.",
-                )}
+                {
+                  "Based on your child's profile and needs, here are the recommended next steps to ensure proper support and care."
+                }
               </p>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
@@ -135,8 +134,6 @@ function DashboardContent() {
 export default function Dashboard() {
   return (
     <Suspense fallback={<div />}>
-      {' '}
-      {/* TODO: replace with skeleton */}
       <DashboardContent />
     </Suspense>
   );

@@ -4,12 +4,11 @@ import Link from 'next/link';
 import {
   BookOpen,
   FileText,
-  Calendar,
-  Users,
-  MessageSquare,
   HelpCircle,
   LucideIcon,
+  ArrowRight,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Feature = {
   title: string;
@@ -18,79 +17,71 @@ type Feature = {
   href: string;
 };
 
-const features: Feature[] = [
-  {
-    title: 'Guides',
-    description: 'Step-by-step guides to help you navigate school life',
-    icon: BookOpen,
-    href: '/guides',
-  },
-  {
-    title: 'Templates',
-    description: 'Ready-to-use templates for school communication',
-    icon: FileText,
-    href: '/templates',
-  },
-  {
-    title: 'Calendar',
-    description: 'Keep track of important school dates and events',
-    icon: Calendar,
-    href: '/calendar',
-  },
-  {
-    title: 'Community',
-    description: 'Connect with other parents and share experiences',
-    icon: Users,
-    href: '/community',
-  },
-  {
-    title: 'Messages',
-    description: 'Direct communication with teachers and school staff',
-    icon: MessageSquare,
-    href: '/messages',
-  },
-  {
-    title: 'Find Help',
-    description: 'Get support from local resources and organizations',
-    icon: HelpCircle,
-    href: '/find-help',
-  },
-];
-
 export default function HomePage() {
+  const t = useTranslations('home');
+
+  const features: Feature[] = [
+    {
+      title: t('features.guides.title'),
+      description: t('features.guides.desc'),
+      icon: BookOpen,
+      href: '/guides',
+    },
+    {
+      title: t('features.templates.title'),
+      description: t('features.templates.desc'),
+      icon: FileText,
+      href: '/templates',
+    },
+    {
+      title: t('features.findHelp.title'),
+      description: t('features.findHelp.desc'),
+      icon: HelpCircle,
+      href: '/find-help',
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section
-        className="relative bg-gradient-to-b from-blue-50 to-white"
-        style={{
-          backgroundImage: "url('/hero-bg.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="absolute inset-0 bg-white/70" aria-hidden="true"></div>
+      <section className="relative bg-[url('/moren-hsu-unsplash.jpg')] bg-cover bg-no-repeat bg-center">
+        <div className="absolute inset-0" aria-hidden="true"></div>
         <div className="relative container mx-auto px-4 py-16">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-12 mb-6">
-              Supporting Your Child&apos;s Education Journey
+          <div className="max-w-3xl mx-auto text-center min-h-80">
+            <h1 className="inline-block text-4xl md:text-5xl font-bold bg-white text-black px-2 mt-12 mb-6">
+              {t('hero.title')}
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Access resources, connect with teachers, and find support to help
-              your child succeed in school.
+            <p className="inline-block text-xl bg-white text-black px-2 mb-8">
+              {t('hero.text')}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
-                href="/onboarding-start"
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                href="/guides"
+                className="group flex items-center gap-4 px-6 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
-                Get Started
+                <div>
+                  <span className="block font-semibold">
+                    {t('actions.getStarted.title')}
+                  </span>
+                  <span className="block text-sm opacity-80">
+                    {t('actions.getStarted.body')}
+                  </span>
+                </div>
+                <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/find-help"
-                className="px-6 py-3 bg-white text-blue-600 rounded-lg border border-blue-600 hover:bg-blue-50 transition-colors"
+                className="group flex items-center gap-4 px-6 py-4 bg-white text-blue-500 rounded-lg border border-blue-600 hover:bg-blue-50 transition-colors"
               >
-                Find Support
+                <div>
+                  <span className="block font-semibold">
+                    {t('actions.findSupport.title')}
+                  </span>
+                  <span className="block text-sm opacity-80">
+                    {t('actions.findSupport.body')}
+                  </span>
+                </div>
+                <ArrowRight className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
@@ -101,7 +92,7 @@ export default function HomePage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Everything You Need
+            {t('featuresHeader')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature: Feature) => (

@@ -148,8 +148,8 @@ export default function TemplatePage({
     );
   }
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(template.content);
+  const handleCopy = () => {
+    void navigator.clipboard.writeText(template.content);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };

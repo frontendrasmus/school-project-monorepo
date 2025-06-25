@@ -1,0 +1,46 @@
+{
+  "home": {
+    "hero": {
+      "title": "Support your child's journey from school to working life",
+      "text": "Access resources, contact teachers, and find support to help your child succeed in school."
+    },
+    "actions": {
+      "getStarted": {
+        "title": "I want to browse available guides",
+        "body": "Explore step-by-step guides for school and healthcare."
+      },
+      "findSupport": {
+        "title": "I need an application for a specific purpose",
+        "body": "Find the right template and get started quickly."
+      }
+    },
+    "featuresHeader": "Explaining section here that explains why we exist, what we do and how we help etc.",
+    "features": {
+      "guides": {
+        "title": "Some text 1",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      "templates": {
+        "title": "Some text 2",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      "findHelp": {
+        "title": "Some text 3",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    }
+  },
+  "header": {
+    "logo": "School Parent(working name)",
+    "nav": {
+      "guides": "Guides",
+      "findHelp": "Find Help",
+      "templates": "Templates"
+    }
+  },
+  "avatar": {
+    "admin": "Admin",
+    "settings": "Settings",
+    "logout": "Log out"
+  }
+}

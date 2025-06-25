@@ -1,5 +1,6 @@
 {
-  "eslint.workingDirectories": [".", "apps/frontend"],
+  "eslint.workingDirectories": ["./apps/frontend", "./apps/backend"],
+  "eslint.run": "onType",
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -10,5 +11,7 @@
     "source.fixAll.eslint": "explicit"
   },
   "eslint.experimental.useFlatConfig": false,
-  "typescript.preferences.includePackageJsonAutoImports": "on"
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false
 }

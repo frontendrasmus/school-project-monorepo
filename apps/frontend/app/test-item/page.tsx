@@ -1,4 +1,7 @@
-import { prisma } from '@/app/utils/prisma';
+import { PrismaClient } from '@prisma/client';
+
+// Local Prisma client instance typed explicitly
+const db = new PrismaClient();
 
 export const dynamic = 'force-dynamic';
 
@@ -10,7 +13,7 @@ interface TestItem {
 }
 
 export default async function TestItemsPage() {
-  const testItems: TestItem[] = await prisma.testItem.findMany({
+  const testItems: TestItem[] = await db.testItem.findMany({
     orderBy: {
       createdAt: 'desc',
     },
