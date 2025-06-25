@@ -19,6 +19,7 @@
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f",
     "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "typecheck": "pnpm -r --parallel run typecheck",
     "typecheck:frontend": "cd apps/frontend && pnpm run typecheck",

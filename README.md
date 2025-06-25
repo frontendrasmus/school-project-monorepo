@@ -117,6 +117,8 @@ Connection URL: postgresql://school_parent:school_parent_password@localhost:5432
 
 # Connect to database
 
+docker exec -it school_parent_db psql -U school_parent -d school_parent
+
 \dt                          -- list tables
 SELECT * FROM "TestItem";
 \q

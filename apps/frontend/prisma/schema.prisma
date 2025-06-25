@@ -20,3 +20,34 @@ model TestItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+/// New models for Guides feature
+
+model Category {
+  id     String  @id @default(uuid())
+  title  String  @unique
+  guides Guide[]
+}
+
+model Guide {
+  id           String   @id @default(uuid())
+  name         String
+  introduction String
+  author       String
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  steps        Step[]   @relation("GuideSteps")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Step {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  externalUrl String?
+  markdown    Json?
+  guides      Guide[]  @relation("GuideSteps")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
