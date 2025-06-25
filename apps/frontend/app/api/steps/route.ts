@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { prisma } from '@/app/utils/prisma';
+import type { Prisma } from '@prisma/client';
 import { handleError } from '@/app/utils/errorUtils';
 import { escapeHtml } from '@/app/utils/stringUtils';
 
@@ -45,7 +46,7 @@ export async function POST(request: Request) {
         title: escapeHtml(title),
         description: escapeHtml(description),
         externalUrl: typeof externalUrl === 'string' ? externalUrl : undefined,
-        markdown: markdown,
+        markdown: (markdown ?? undefined) as Prisma.InputJsonValue | undefined,
       },
     });
 

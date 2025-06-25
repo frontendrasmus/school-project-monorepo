@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { prisma } from '@/app/utils/prisma';
+import type { Prisma } from '@prisma/client';
 import { handleError } from '@/app/utils/errorUtils';
 import { escapeHtml } from '@/app/utils/stringUtils';
 
@@ -63,7 +64,9 @@ export async function POST(request: Request) {
                 typeof step.externalUrl === 'string'
                   ? step.externalUrl
                   : undefined,
-              markdown: step.markdown,
+              markdown: (step.markdown ?? undefined) as
+                | Prisma.InputJsonValue
+                | undefined,
             };
           }),
           connect: (existingStepIds as string[]).map((id) => ({ id })),

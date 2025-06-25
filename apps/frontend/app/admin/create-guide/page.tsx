@@ -183,8 +183,8 @@ function CreateGuideForm() {
         <div>
           <h4 className="font-medium mb-2">New steps to create</h4>
           <ul className="list-disc list-inside text-sm text-gray-700">
-            {newSteps.map((s: StepInput, idx: number) => (
-              <li key={idx}>{s.title}</li>
+            {newSteps.map(({ title }, idx: number) => (
+              <li key={idx}>{title}</li>
             ))}
           </ul>
         </div>
@@ -192,9 +192,7 @@ function CreateGuideForm() {
       {/* Create Step modal trigger */}
       <StepModal
         triggerLabel="Create Step"
-        onCreated={(step: StepInput) =>
-          setNewSteps((prev: StepInput[]): StepInput[] => [...prev, step])
-        }
+        onCreated={(step: StepInput) => setNewSteps(newSteps.concat(step))}
       />
       <button
         type="submit"
